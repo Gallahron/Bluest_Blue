@@ -1,8 +1,8 @@
 import * as THREE from "three";
 import { BufferGeometry, Camera, Color, Vector2, Vector3 } from "three";
-import * as BufferGeometryUtils from "../Common/BufferGeometryUtils";
+import * as BufferGeometryUtils from "../../Common/BufferGeometryUtils";
 import { genPolygon } from "./GenVertices";
-import { calcHexGrid } from "../Common/APIHelper";
+import { calcHexGrid } from "../../Common/APIHelper";
 import './Graph.scss';
 import {lerp } from "three/src/math/MathUtils";
 

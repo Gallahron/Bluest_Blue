@@ -1,21 +1,15 @@
 import React from "react";
-import { useEffect } from "react";
 import * as THREE from "three";
-import { BufferGeometry, Camera, Color, Vector2, Vector3 } from "three";
-import * as BufferGeometryUtils from "../Common/BufferGeometryUtils";
-import { calcHexGrid } from "../Common/APIHelper";
-import { render } from "@testing-library/react";
-import OxygenFontData from "@compai/font-oxygen-mono/data/typefaces/oxygen-mono-normal-400.json";
-import { FontLoader } from "../Common/FontLoader";
-import { TextGeometry } from "../Common/TextGeometry";
-import {OBJLoader} from "three/examples/jsm/loaders/OBJLoader";
-import CrownObj from '../assets/crown.obj';
+import { Vector2, Vector3 } from "three";
+import { OBJLoader } from "three/examples/jsm/loaders/OBJLoader";
+import CrownObj from '../../assets/crown.obj';
 import './Graph.scss';
 import { inverseLerp, lerp } from "three/src/math/MathUtils";
 import { HexGraph } from "./HexGraph";
 import { OrbitCamera } from "./OrbitCamera";
-import {CameraSpinner} from "./CameraSpinner";
+import { CameraSpinner } from "./CameraSpinner";
 import { ColourPicker } from "./ColourPicker";
+import { BobbingObject } from "./BobbingObject";
 
 
 interface animationProps {
@@ -43,6 +37,8 @@ export class Graph extends React.Component<IProps, IState>{
   
   spinHandler:CameraSpinner;
   colourPicker?:ColourPicker;
+
+  crown?:BobbingObject;
   
   constructor(props:IProps) {
     super(props);
@@ -133,10 +129,6 @@ export class Graph extends React.Component<IProps, IState>{
   }
 
   private markHeighest = (graph:HexGraph) => {
-    const ROTATION_SPEED = 0.03;
-    const BOB_SPEED = 0.05;
-
-    let maxHeight = 0;
     let position:Vector3 = graph.GetHighestPoint();
     
     const loader = new OBJLoader();
@@ -148,11 +140,6 @@ export class Graph extends React.Component<IProps, IState>{
             o.material = new THREE.MeshBasicMaterial({color: 0xffff00});
           }
         })
-        /*crown.position.set(
-          position.x - this.offset.x,
-          maxHeight + 3,
-          position.z - this.offset.z
-        );*/
 
         crown.position.set(
           position.x,
@@ -161,22 +148,18 @@ export class Graph extends React.Component<IProps, IState>{
         )
 
         this.scene!.add(crown);
-        
-        let time:number = 0;
-        const animateCrown = () => {
-          requestAnimationFrame(animateCrown);
 
-          crown.position.setY(position.y + 3 + 2 * Math.sin(time));
-          time += BOB_SPEED;
-
-          crown.rotateY(ROTATION_SPEED);
-        }
-        animateCrown();
-        
+        this.crown = new BobbingObject({
+          target: crown,
+          targetHeight: position.y + 3,
+          bobAmplitude: 2,
+          bobSpeed: 1,
+          rotationSpeed: 0.6,
+        });
       },
       o=>{},
       o=>{console.log(o)}
-      );
+    );
 
   }
   
