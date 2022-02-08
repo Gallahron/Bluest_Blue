@@ -1,0 +1,30 @@
+@import url('https://fonts.googleapis.com/css2?family=Nova+Round&display=swap');
+
+$button-colour: hsl(225, 100%, 49.5%);
+
+.round-button {
+  display: flex;
+  width: fit-content;
+  height: fit-content;
+  transition: 0.5s;
+  border-radius: 5000px;
+  flex-direction: column;
+  cursor: pointer;
+
+  background-color: $button-colour;
+  &:hover {
+    background-color: lighten($button-colour, 5%);
+  }
+}
+
+.button-text {
+  margin: auto;
+  text-align: center;
+  font-family: 'Nova Round', cursive;
+  font-size: 2rem;
+  color: white;
+  font-weight: bold;
+  margin: 10px 20px;
+  user-select: none;
+}
+

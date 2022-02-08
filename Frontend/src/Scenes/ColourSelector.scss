@@ -1,0 +1,11 @@
+.colour-selector {
+  display: flex;
+  height: 100%;
+}
+
+.result-button {
+  position:absolute;
+  left: 50%;
+  transform: translateX(-50%);
+  bottom: 10%;
+}

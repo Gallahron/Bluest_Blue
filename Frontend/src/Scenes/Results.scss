@@ -1,0 +1,12 @@
+.result-container{
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.back-button {
+  position: absolute;
+  left:5px;
+  top: 5px; 
+}

@@ -1,0 +1,21 @@
+@import '../index.scss';
+
+svg path {
+  transition: 0s linear;
+}
+svg path:nth-child(odd) {
+  stroke-dashoffset: 200;
+}
+svg path:nth-child(even) {
+  stroke-dashoffset: 300;
+}
+
+@media (pointer:fine) {
+  svg:hover path:nth-child(odd) {
+    stroke-dashoffset:0;
+  }
+
+  svg:hover path:nth-child(even) {
+    stroke-dashoffset:100;
+  }
+}
